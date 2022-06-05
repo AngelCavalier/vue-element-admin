@@ -67,6 +67,13 @@ export const asyncRoutes = [
         meta: { title: '上传图书', icon: 'edit', roles: ['admin'] }
       },
       {
+        path: '/book/edit',
+        component: () => import('@/views/book/edit'),
+        name: 'bookEdit',
+        hidden: true,
+        meta: { title: '编辑图书', icon: 'edit', roles: ['admin'], activeMenu: '/book/list' }
+      },
+      {
         path: '/book/list',
         component: () => import('@/views/book/create'),
         name: 'bookCList',
