@@ -57,11 +57,23 @@ export default {
   },
   methods: {
     beforeUpload(file) {
-      console.log(file)
       this.$emit('beforeUpload', file)
     },
-    onSuccess() {
-
+    onSuccess(res, file) {
+      const { code, msg } = res
+      if (code === 0) {
+        this.$message({
+          message: msg,
+          type: 'success'
+        })
+        this.$emit('onSuccess', file)
+      } else {
+        this.$message({
+          message: (msg && `上传失败，失败原因：${msg}`) || '上传失败',
+          type: 'success'
+        })
+        this.$emit('onError', file)
+      }
     },
     onError(err) {
       console.log({ err })
@@ -73,7 +85,11 @@ export default {
       this.$emit('onError', err)
     },
     onRemove() {
-
+      this.$message({
+        message: '电子书删除成功',
+        type: 'success'
+      })
+      this.$emit('onRemove')
     },
     onExceed() {
       this.$message({
